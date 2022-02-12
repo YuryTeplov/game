@@ -18,6 +18,12 @@ function Hero:new(map, posx, posy, imagefile)
     local public = {}
 
         function public:addItem(itemClass, count)
+            for k, v in pairs(private.backpack) do
+                if v.item == itemClass then
+                    v.count = v.count + count
+                    return
+                end
+            end
             table.insert(private.backpack, {item= itemClass, count= count})
         end
 
@@ -62,6 +68,28 @@ function Hero:new(map, posx, posy, imagefile)
             private.hit(self, x, y+y1/2, 0, private.bulletSpeed)
         end
 
+        function public:touchItem()
+            local contacts = self:getBody():getContacts()           
+            for k, i in pairs(contacts) do
+                local fix1, fix2 = i:getFixtures()
+                local data1 = fix1:getUserData()
+                local data2 = fix2:getUserData()
+                if data1 and data1.type == "item" then
+                    public:addItem(data1.items.itemclass, data1.items.count)
+                    data1.take()
+                    break
+                end
+                if data2 and data2.type == "item" then
+                    public:addItem(data2.items.itemclass, data2.items.count)
+                    data2.take()
+                    break
+                end
+            end
+        end
+
+        function public:getBackpack()
+            return private.backpack
+        end
 
     setmetatable(public, self)
     self.__index = self; return public

@@ -98,6 +98,10 @@ function Mob:new(world, posx, posy, imagefile, hp, sx, sy, speed)
             table.insert(private.effects, effect)
         end
 
+        function public:getHealth()
+            return private.health
+        end
+
     setmetatable(public, self)
     self.__index = self; 
 

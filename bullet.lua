@@ -7,6 +7,8 @@ Bullet = {}
 
 extended(Bullet, Actor)
 
+Bullet.name = "bullet"
+
 function Bullet:new(map, x, y, vx, vy, distanse, ownerId, damage)
     local self = Actor:new(map:getWorld(), x, y, "dynamic", love.physics.newCircleShape(5))
     local private = {}

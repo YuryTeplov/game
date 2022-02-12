@@ -78,6 +78,7 @@ function Actor:new(world, posx, posy, bodytype, shape, imagefile, size_image_x, 
         end
 
         function public:draw()
+            public:drawTexture()
         end
 
         function public:load()

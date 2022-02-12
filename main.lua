@@ -1,9 +1,12 @@
+require "interface"
 require "texture"
 require "map"
 require "wall"
 require "hero"
 require "camera"
 require "enemy"
+require "dropitem"
+require "bullet"
 
 function love.load()
     map = Map:new()
@@ -30,19 +33,24 @@ function love.load()
     enemy = Enemy:new(map, 430, 430)
     map:addObject(enemy)
 
+    dropitem = Dropitem:new(map:getWorld(), 500, 500, "purple.png", Bullet, 5)
+    map:addObject(dropitem)
+
+    interface = Interface:new()
+    interface:setHero(hero)
+    
+    map:setTargetForCamera(hero)
 
 
-    camera = Camera:new()
-    camera:setTarget(hero)
+
 
 
 end
 
 function love.draw()
     love.graphics.setColor(1, 1, 1)
-    camera:set()
     map:draw()
-    camera:unset()
+    interface:draw()
 end
 
 function love.update(dt)
@@ -59,6 +67,7 @@ function love.update(dt)
         hero:move_bottom()
     end
 
+
 end
 
 function love.keypressed(key)
@@ -70,5 +79,7 @@ function love.keypressed(key)
         hero:hit_right()
     elseif key == "down" then
         hero:hit_bottom()
+    elseif key == "e" then
+        hero:touchItem()
     end
 end

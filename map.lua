@@ -8,10 +8,17 @@ function Map:new()
         love.physics.setMeter(64)
         private.world = love.physics.newWorld(0, 0, true)
 
+
         private.creationQueue = {}
+
+        private.camera = Camera:new()
 
     local public = {}
 
+        function public:setTargetForCamera(target)
+            private.camera:setTarget(target)
+        end
+        
         function beginContact(a, b, coll)
             adata = a:getUserData()
             bdata = b:getUserData()
@@ -52,9 +59,11 @@ function Map:new()
         end
 
         function public:draw()
+            private.camera:set()
             for k, i in pairs(private.objects) do
                 i:draw()
             end
+            private.camera:unset()
         end
 
         function public:load()
