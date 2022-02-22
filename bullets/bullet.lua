@@ -1,15 +1,15 @@
 require "extended"
 require "actor"
 require "boxeffect"
-require "poisonbox"
 
 Bullet = {}
 
 extended(Bullet, Actor)
 
 Bullet.name = "bullet"
+Bullet.type = "bullet"
 
-function Bullet:new(map, x, y, vx, vy, distanse, ownerId, damage)
+function Bullet:new(map, x, y, vx, vy, distanse, ownerId, damage, boxEffect)
     local self = Actor:new(map:getWorld(), x, y, "dynamic", love.physics.newCircleShape(5))
     local private = {}
 
@@ -23,6 +23,7 @@ function Bullet:new(map, x, y, vx, vy, distanse, ownerId, damage)
         private.damage = damage or 100
         
         private.ownerId = ownerId
+        private.boxEffect = boxEffect
 
     local public = {}
 
@@ -31,7 +32,9 @@ function Bullet:new(map, x, y, vx, vy, distanse, ownerId, damage)
             local x, y = body:getPosition()
             body:destroy()
 
-            map:addToCreationQueue(Poisonbox, map:getWorld(), x, y)
+            if private.boxEffect then
+                map:addToCreationQueue(private.boxEffect, map:getWorld(), x, y)
+            end
 
         end
 

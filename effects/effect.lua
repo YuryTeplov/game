@@ -31,6 +31,7 @@ function Effect:new(duration)
         end
     end
 
+    public.old = public
 
     setmetatable(public, self)
     self.__index = self; return public

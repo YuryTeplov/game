@@ -1,6 +1,6 @@
 require "extended"
 require "mob"
-require "bullet"
+require "bullets/poison"
 require "gun"
 
 Hero = {}
@@ -11,7 +11,7 @@ function Hero:new(map, posx, posy, imagefile)
     local self = Mob:new(map:getWorld(), posx, posy, imagefile)
     local private = {}
         
-        private.gun = Gun:new(Bullet)
+        private.gun = Gun:new()
 
         private.backpack = {}
 
@@ -31,7 +31,7 @@ function Hero:new(map, posx, posy, imagefile)
             private.gun:setBullets(private.backpack[id])
         end
 
-        public:addItem(Bullet, 10)
+        public:addItem(PoisonBullet, 10)
         public:setBullets(1)
 
 

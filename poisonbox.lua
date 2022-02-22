@@ -1,6 +1,6 @@
 require "boxeffect"
 require "extended"
-require "poison"
+require "effects/poison"
 
 Poisonbox = {}
 

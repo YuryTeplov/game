@@ -1,5 +1,5 @@
 require "extended"
-require "effect"
+require "effects/effect"
 
 Poison = {}
 

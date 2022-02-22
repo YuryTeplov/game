@@ -6,7 +6,7 @@ require "hero"
 require "camera"
 require "enemy"
 require "dropitem"
-require "bullet"
+require "bullets/bullet"
 
 function love.load()
     map = Map:new()
