@@ -36,7 +36,9 @@ function love.load()
     dropitem = Dropitem:new(map:getWorld(), 500, 500, "purple.png", Bullet, 5)
     map:addObject(dropitem)
 
-    interface = Interface:new()
+    interfaceFont = love.graphics.newFont(20)
+
+    interface = Interface:new(interfaceFont)
     interface:setHero(hero)
     
     map:setTargetForCamera(hero)
@@ -48,12 +50,15 @@ function love.load()
 end
 
 function love.draw()
+    if hero:isDestroyed() then return end
     love.graphics.setColor(1, 1, 1)
     map:draw()
     interface:draw()
 end
 
 function love.update(dt)
+    if hero:isDestroyed() then return end
+
     map:update(dt)
     if love.keyboard.isDown("d") then
         hero:move_right()
