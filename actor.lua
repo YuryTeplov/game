@@ -24,7 +24,7 @@ function Actor:new(world, posx, posy, bodytype, shape, imagefile, size_image_x, 
         end
 
         if imagefile then
-            private.texture = Animation:new(imagefile, 3, 4, 4, public:getSize())
+            private.texture = Animation:new(imagefile, 6, 4, 4, public:getSize())
         end
 
 

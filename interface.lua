@@ -3,6 +3,11 @@ Interface = {}
 function Interface:new(font)
     local private = {}
         private.font = font
+
+        -- loading images
+
+        private.health_icon = love.graphics.newImage("health_icon.png")
+
     local public = {}
 
     function public:setHero(hero)
@@ -17,7 +22,17 @@ function Interface:new(font)
 
             local hp = private.hero:getHealth()
             love.graphics.setColor(1, 1, 1)
-            love.graphics.print(hp, 20, 20)
+
+            -- draw heart icon
+            --
+            love.graphics.push()
+            love.graphics.scale(0.02, 0.02)
+
+            love.graphics.draw(private.health_icon, 20 * (1/0.02), 20 * (1/0.02))
+
+            love.graphics.pop()
+
+            love.graphics.print(hp, 50, 20)
 
             -- back to default font
             love.graphics.setNewFont(14)
